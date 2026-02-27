@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Drug Management System</title>
+  <link rel="stylesheet" href="assets/css/drug-mgmt.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <h1>Drug Management System</h1>
+    <p class="subtitle">Local formulary with FDB / Medi-Span style mapping (simulated)</p>
+  </header>
+
+  <main id="main" class="layout" aria-label="Drug management application">
+    <nav class="sidebar" aria-label="Sections">
+      <button class="nav-btn is-active" data-view="drugs" type="button">Drug Master</button>
+      <button class="nav-btn" data-view="fdb" type="button">FDB Mapping</button>
+      <button class="nav-btn" data-view="medispan" type="button">Medi-Span Mapping</button>
+      <button class="nav-btn" data-view="blocks" type="button">Clinical Blocks</button>
+    </nav>
+
+    <section class="content" aria-live="polite">
+      <!-- Drug Master -->
+      <section class="view is-active" id="view-drugs" aria-labelledby="heading-drugs">
+        <header class="panel-header">
+          <div>
+            <h2 id="heading-drugs">Drug Master</h2>
+            <p class="muted">Maintain your local drug list (generic, brand, NDC, strength, route, etc.).</p>
+          </div>
+        </header>
+
+        <div class="panel-grid">
+          <form id="form-drug" class="card" autocomplete="off">
+            <h3>Drug details</h3>
+            <div class="field-grid">
+              <label>
+                Generic name
+                <input id="drug-generic" name="generic" required>
+              </label>
+              <label>
+                Brand name
+                <input id="drug-brand" name="brand">
+              </label>
+              <label>
+                NDC (simulated)
+                <input id="drug-ndc" name="ndc" placeholder="00000-0000-00">
+              </label>
+              <label>
+                Strength
+                <input id="drug-strength" name="strength" placeholder="500 mg">
+              </label>
+              <label>
+                Dosage form
+                <input id="drug-form" name="form" placeholder="Tablet, Capsule, Injection">
+              </label>
+              <label>
+                Route
+                <input id="drug-route" name="route" placeholder="Oral, IV, IM">
+              </label>
+              <label>
+                DEA / Schedule
+                <input id="drug-dea" name="dea" placeholder="Non-controlled, C-II, C-III">
+              </label>
+              <label>
+                Status
+                <select id="drug-status" name="status">
+                  <option value="active">Active</option>
+                  <option value="inactive">Inactive</option>
+                  <option value="discontinued">Discontinued</option>
+                </select>
+              </label>
+            </div>
+
+            <label class="full-width">
+              Notes
+              <textarea id="drug-notes" name="notes" rows="2"></textarea>
+            </label>
+
+            <div class="actions">
+              <button type="submit" class="btn primary" id="btn-save-drug">Save drug</button>
+              <button type="button" class="btn" id="btn-reset-drug">Reset form</button>
+            </div>
+            <p id="msg-drug" class="msg" aria-live="polite"></p>
+          </form>
+
+          <section class="card">
+            <header class="card-header">
+              <div>
+                <h3>Drug list</h3>
+                <p class="muted">Click a row to load into the form for editing.</p>
+              </div>
+              <label class="search">
+                <span>Search</span>
+                <input id="drug-search" type="search" placeholder="Name, NDC, route…">
+              </label>
+            </header>
+
+            <div class="table-wrapper" aria-live="polite">
+              <table class="table" id="table-drugs">
+                <thead>
+                <tr>
+                  <th>Generic</th>
+                  <th>Brand</th>
+                  <th>NDC</th>
+                  <th>Strength</th>
+                  <th>Route</th>
+                  <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- rows injected by JS -->
+                </tbody>
+              </table>
+              <p id="empty-drugs" class="muted">No drugs yet. Add one using the form.</p>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <!-- FDB mapping (simulated) -->
+      <section class="view" id="view-fdb" aria-labelledby="heading-fdb" hidden>
+        <header class="panel-header">
+          <div>
+            <h2 id="heading-fdb">FDB Mapping (Simulated)</h2>
+            <p class="muted">Attach simulated First Databank identifiers to your local drugs.</p>
+          </div>
+        </header>
+
+        <div class="panel-grid">
+          <form id="form-fdb" class="card">
+            <h3>FDB identifiers</h3>
+            <label>
+              Local drug
+              <select id="fdb-drug" required></select>
+            </label>
+            <label>
+              FDB Drug ID
+              <input id="fdb-drug-id" placeholder="Simulated code e.g. 123456">
+            </label>
+            <label>
+              FDB GCN Seq No
+              <input id="fdb-gcn" placeholder="e.g. 12345">
+            </label>
+            <label>
+              FDB GPI
+              <input id="fdb-gpi" placeholder="e.g. 1234567890">
+            </label>
+            <label>
+              Comments
+              <textarea id="fdb-notes" rows="2"></textarea>
+            </label>
+            <div class="actions">
+              <button type="submit" class="btn primary">Save mapping</button>
+              <button type="button" class="btn" id="btn-reset-fdb">Reset</button>
+            </div>
+            <p id="msg-fdb" class="msg" aria-live="polite"></p>
+          </form>
+
+          <section class="card">
+            <h3>FDB mappings</h3>
+            <div class="table-wrapper">
+              <table class="table" id="table-fdb">
+                <thead>
+                <tr>
+                  <th>Local drug</th>
+                  <th>FDB Drug ID</th>
+                  <th>GCN Seq No</th>
+                  <th>GPI</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+              <p id="empty-fdb" class="muted">No FDB mappings yet.</p>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <!-- Medi-Span mapping (simulated) -->
+      <section class="view" id="view-medispan" aria-labelledby="heading-medispan" hidden>
+        <header class="panel-header">
+          <div>
+            <h2 id="heading-medispan">Medi-Span Mapping (Simulated)</h2>
+            <p class="muted">Attach simulated Medi-Span identifiers (GPI, GCN, etc.) to your local drugs.</p>
+          </div>
+        </header>
+
+        <div class="panel-grid">
+          <form id="form-medispan" class="card">
+            <h3>Medi-Span identifiers</h3>
+            <label>
+              Local drug
+              <select id="medispan-drug" required></select>
+            </label>
+            <label>
+              Medi-Span Drug ID
+              <input id="medispan-drug-id" placeholder="Simulated code">
+            </label>
+            <label>
+              Medi-Span GPI
+              <input id="medispan-gpi" placeholder="e.g. 58-20-00-10-10-10-10">
+            </label>
+            <label>
+              Notes
+              <textarea id="medispan-notes" rows="2"></textarea>
+            </label>
+            <div class="actions">
+              <button type="submit" class="btn primary">Save mapping</button>
+              <button type="button" class="btn" id="btn-reset-medispan">Reset</button>
+            </div>
+            <p id="msg-medispan" class="msg" aria-live="polite"></p>
+          </form>
+
+          <section class="card">
+            <h3>Medi-Span mappings</h3>
+            <div class="table-wrapper">
+              <table class="table" id="table-medispan">
+                <thead>
+                <tr>
+                  <th>Local drug</th>
+                  <th>Medi-Span Drug ID</th>
+                  <th>GPI</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+              <p id="empty-medispan" class="muted">No Medi-Span mappings yet.</p>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <!-- Clinical blocks -->
+      <section class="view" id="view-blocks" aria-labelledby="heading-blocks" hidden>
+        <header class="panel-header">
+          <div>
+            <h2 id="heading-blocks">Clinical Blocks</h2>
+            <p class="muted">Capture high-level clinical attributes per drug (warnings, pregnancy, renal, hepatic, etc.).</p>
+          </div>
+        </header>
+
+        <div class="panel-grid">
+          <form id="form-blocks" class="card">
+            <h3>Clinical attributes</h3>
+            <label>
+              Local drug
+              <select id="blocks-drug" required></select>
+            </label>
+
+            <div class="field-grid blocks-grid">
+              <fieldset>
+                <legend>Warnings</legend>
+                <label><input type="checkbox" id="blk-blackbox"> Black box warning</label>
+                <label><input type="checkbox" id="blk-high-alert"> High-alert medication</label>
+                <label><input type="checkbox" id="blk-lookalike"> Look-alike / sound-alike risk</label>
+              </fieldset>
+
+              <fieldset>
+                <legend>Pregnancy & lactation</legend>
+                <label>
+                  Pregnancy category (simplified)
+                  <select id="blk-preg"> 
+                    <option value="">Not set</option>
+                    <option value="contraindicated">Contraindicated</option>
+                    <option value="avoid">Avoid if possible</option>
+                    <option value="use-with-caution">Use with caution</option>
+                    <option value="compatible">Compatible</option>
+                  </select>
+                </label>
+                <label><input type="checkbox" id="blk-lactation"> Avoid in lactation</label>
+              </fieldset>
+
+              <fieldset>
+                <legend>Renal & hepatic</legend>
+                <label><input type="checkbox" id="blk-renal"> Requires renal adjustment</label>
+                <label><input type="checkbox" id="blk-hepatic"> Requires hepatic adjustment</label>
+              </fieldset>
+            </div>
+
+            <label class="full-width">
+              Clinical notes
+              <textarea id="blk-notes" rows="3"></textarea>
+            </label>
+
+            <div class="actions">
+              <button type="submit" class="btn primary">Save clinical block</button>
+              <button type="button" class="btn" id="btn-reset-blocks">Reset</button>
+            </div>
+            <p id="msg-blocks" class="msg" aria-live="polite"></p>
+          </form>
+
+          <section class="card">
+            <h3>Clinical overview</h3>
+            <div class="table-wrapper">
+              <table class="table" id="table-blocks">
+                <thead>
+                <tr>
+                  <th>Drug</th>
+                  <th>Warnings</th>
+                  <th>Pregnancy</th>
+                  <th>Renal / Hepatic</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+              <p id="empty-blocks" class="muted">No clinical blocks yet.</p>
+            </div>
+          </section>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>All drug identifiers and attributes in this demo are simulated and not real FDB or Medi-Span data.</p>
+  </footer>
+
+  <script src="assets/js/drug-mgmt.js" defer></script>
+</body>
+</html>
