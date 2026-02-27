@@ -1,52 +1,16 @@
-# Drug Management System (Demo)
+# React + Vite
 
-This is a browser-based **drug management system** implemented with plain HTML, CSS, and JavaScript. 
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-It simulates a local formulary with multiple forms/blocks inspired by FDB / Medi-Span style data models but **does not use any real proprietary data**.
+Currently, two official plugins are available:
 
-## Features
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-- **Drug Master**
-  - Add/edit local drug records (generic, brand, NDC, strength, route, form, DEA/schedule, notes)
-  - Search/filter across the drug list
-  - Click a row to load a drug back into the form for editing
+## React Compiler
 
-- **FDB Mapping (Simulated)**
-  - Attach simulated FDB-style identifiers (Drug ID, GCN Seq No, GPI) to your local drugs
-  - Edit mappings by clicking a row
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-- **Medi-Span Mapping (Simulated)**
-  - Attach simulated Medi-Span identifiers (Drug ID, GPI) to your local drugs
-  - Edit mappings by clicking a row
+## Expanding the ESLint configuration
 
-- **Clinical Blocks**
-  - Capture high-level clinical attributes per drug (black box, high-alert, LASA, pregnancy, lactation, renal/hepatic flags, notes)
-  - See an overview table of clinical attributes per drug
-
-- **Persistence**
-  - All data is stored in `localStorage` in the browser; it remains on the same device and browser until you clear it.
-
-## Run
-
-Open `index.html` directly in your browser, or start a small local server (recommended for some browsers):
-
-```bash
-cd path/to/copilot
-python -m http.server 4200
-```
-
-Then open:
-
-- http://localhost:4200
-
-## Project structure
-
-- [index.html](index.html) – Main page shell and layout
-- [assets/css/drug-mgmt.css](assets/css/drug-mgmt.css) – Styles
-- [assets/js/drug-mgmt.js](assets/js/drug-mgmt.js) – Application logic and state management
-
-## Important note
-
-This project **does not ship with FDB or Medi-Span data** and does not integrate their commercial APIs. 
-All identifiers and mappings are **purely simulated** so you can explore the structure and forms safely. 
-To connect to a real drug database, you would replace the simulated identifiers with calls to your licensed data source.
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.

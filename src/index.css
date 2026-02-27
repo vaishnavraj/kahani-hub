@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply antialiased bg-cream text-ink font-body;
+  }
+
+  /* Dark mode body */
+  .dark body,
+  .dark #root {
+    @apply bg-slate text-cream-soft;
+  }
+
+  /* Typography fine-tuning */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-cream-dark;
+  }
+  .dark ::-webkit-scrollbar-track {
+    @apply bg-slate-card;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-forest/30 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-forest/50;
+  }
+
+  /* Focus outlines */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-gold;
+  }
+}
+
+@layer components {
+  /* Reusable pill button */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-forest px-6 py-2.5
+           text-sm font-semibold text-cream shadow-soft
+           transition-all duration-200 hover:bg-forest-deep hover:shadow-card
+           active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-gold;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-forest/25
+           bg-white/70 px-6 py-2.5 text-sm font-semibold text-forest
+           shadow-sm transition-all duration-200
+           hover:bg-forest/5 hover:border-forest/40
+           active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-gold;
+  }
+
+  /* Dark mode button overrides */
+  .dark .btn-primary {
+    @apply bg-gold text-slate hover:bg-gold-dark;
+  }
+  .dark .btn-secondary {
+    @apply border-gold/30 bg-slate-card text-cream-soft hover:bg-slate-raised hover:border-gold/50;
+  }
+
+  /* Card surface */
+  .surface-card {
+    @apply rounded-2xl border border-forest/5 bg-white/80 shadow-soft
+           transition-all duration-300;
+  }
+  .dark .surface-card {
+    @apply border-white/5 bg-slate-card shadow-none;
+  }
+
+  /* Input fields */
+  .input-field {
+    @apply w-full rounded-xl border border-forest/20 bg-cream-soft px-3.5 py-2.5
+           text-sm text-ink placeholder:text-forest/40
+           transition-colors duration-200
+           focus:border-forest focus:outline-none focus:ring-2 focus:ring-forest/20;
+  }
+  .dark .input-field {
+    @apply border-white/10 bg-slate-raised text-cream-soft placeholder:text-white/30
+           focus:border-gold focus:ring-gold/20;
+  }
+
+  /* Section wrapper */
+  .section-wrapper {
+    @apply mx-auto max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+}
+
+@layer utilities {
+  /* Staggered animation helper */
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+  .stagger-5 { animation-delay: 0.5s; }
+}
