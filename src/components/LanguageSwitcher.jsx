@@ -40,8 +40,8 @@ export default function LanguageSwitcher() {
       <button
         onClick={() => setOpen(!open)}
         className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium
-                   bg-cream-100 dark:bg-ink-700 text-ink-700 dark:text-cream-100
-                   hover:bg-cream-200 dark:hover:bg-ink-600 transition-colors"
+                   bg-cream-dark dark:bg-slate-raised text-forest-deep dark:text-cream-soft
+                   hover:bg-gold-soft/40 dark:hover:bg-slate-card transition-colors"
         aria-label={t('languageSwitcher.label')}
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -55,20 +55,20 @@ export default function LanguageSwitcher() {
 
       {open && (
         <div className="absolute right-0 mt-2 w-64 max-h-80 overflow-hidden rounded-xl shadow-card
-                        bg-white dark:bg-ink-800 border border-cream-200 dark:border-ink-600 z-50
+                        bg-white dark:bg-slate-card border border-forest/10 dark:border-white/10 z-50
                         animate-fade-in flex flex-col">
           {/* Search */}
-          <div className="p-2 border-b border-cream-200 dark:border-ink-600">
+          <div className="p-2 border-b border-forest/10 dark:border-white/10">
             <input
               type="text"
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder={t('languageSwitcher.search')}
               className="w-full px-3 py-1.5 text-sm rounded-lg
-                         bg-cream-50 dark:bg-ink-700 text-ink-800 dark:text-cream-100
-                         placeholder:text-slate-400 dark:placeholder:text-slate-500
-                         border border-cream-200 dark:border-ink-600
-                         focus:outline-none focus:ring-2 focus:ring-gold-400"
+                         bg-cream-soft dark:bg-slate-raised text-forest-deep dark:text-cream-soft
+                         placeholder:text-forest/40 dark:placeholder:text-white/30
+                         border border-forest/10 dark:border-white/10
+                         focus:outline-none focus:ring-2 focus:ring-gold"
               autoFocus
             />
           </div>
@@ -80,8 +80,8 @@ export default function LanguageSwitcher() {
                 <button
                   onClick={() => changeLanguage(lang.code)}
                   className={`w-full text-left px-4 py-2 text-sm flex items-center justify-between
-                             hover:bg-cream-100 dark:hover:bg-ink-700 transition-colors
-                             ${lang.code === i18n.language ? 'bg-gold-50 dark:bg-gold-900/20 text-gold-700 dark:text-gold-300 font-semibold' : 'text-ink-700 dark:text-cream-200'}`}
+                             hover:bg-cream-dark dark:hover:bg-slate-raised transition-colors
+                             ${lang.code === i18n.language ? 'bg-gold-soft/40 dark:bg-gold/10 text-forest-deep dark:text-gold font-semibold' : 'text-forest/80 dark:text-cream-soft/70'}`}
                   role="option"
                   aria-selected={lang.code === i18n.language}
                 >
@@ -90,7 +90,7 @@ export default function LanguageSwitcher() {
                     <span className="block text-xs opacity-60">{lang.name}</span>
                   </span>
                   {lang.code === i18n.language && (
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gold-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                   )}
@@ -98,7 +98,7 @@ export default function LanguageSwitcher() {
               </li>
             ))}
             {filtered.length === 0 && (
-              <li className="px-4 py-3 text-sm text-slate-400 text-center">No results</li>
+              <li className="px-4 py-3 text-sm text-forest/40 dark:text-white/30 text-center">No results</li>
             )}
           </ul>
         </div>
